@@ -17,8 +17,10 @@ const processRequest = (req, res) => {
             }
         case 'POST':
             switch(url){
-                case '/pokemon':
+                case '/pokemon':{
                     let body = '';
+                }
+                    
             }
     }
 };
