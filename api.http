@@ -1,1 +1,11 @@
+### Get Ditto information
 GET http://localhost:3000/pokemon/ditto
+### Create a new pokemon
+POST http://localhost:3000/pokemon
+Content-Type: application/
+
+{
+  "name": "ditto",
+  "type": "normal",
+  "moves": ["transform"]
+}
