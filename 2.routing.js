@@ -27,7 +27,8 @@ const processRequest = (req, res) => {
                     // node js es basado en eventos, por lo que el evento end se dispara cuando se termina de recibir la data del body
                     req.on('end', () => {
                         const parsedBody = JSON.parse(body);
-                        res.writeHead(201, {'Content-Type': 'application/json'});
+                        res.writeHead(201, {'Content-Type': 'application/json; charset=utf-8'});
+                        parsedBody.timestamp = Date.now();
                         res.end(JSON.stringify(parsedBody));
                     });
                     break;
