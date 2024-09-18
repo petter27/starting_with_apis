@@ -7,11 +7,26 @@ const app = express();
 
 app.disable('x-powered-by'); // deshabilitar la cabecera X-Powered-By
 
+app.use(express.json()); // hace lo mismo que el middleware que creamos
 // middleware
+/*
 app.use((req, res, next) => {
-  console.log('Middleware 1');
-  next();
-});
+  if (req.method !== 'POST') return next();
+  if (req.headers['content-type'] !== 'application/json') return next();
+  // solo se ejecuta si el metodo es POST y el content-type es application/json
+  let body = '';
+  req.on('data', (chunk) => {
+    body += chunk.toString();
+  });
+
+  req.on('end', () => {
+    const data = JSON.parse(body);
+    data.timestamp = Date.now();
+    // mutar la request y meter la informacion en el req.body
+    req.body = data;
+    next();
+  });
+}); */
 
 app.get('/pokemon/ditto', (req, res) => {
   // por defecto el status es 200, detecta eñ content-type automaticamente y envia el contenido
@@ -20,17 +35,7 @@ app.get('/pokemon/ditto', (req, res) => {
 });
 
 app.post('/pokemon', (req, res) => {
-  let body = '';
-  // escuchar el evento data
-  req.on('data', (chunk) => {
-    body += chunk.toString();
-  });
-
-  req.on('end', () => {
-    const data = JSON.parse(body);
-    data.timestamp = Date.now();
-    res.status(201).json(data);
-  });
+  res.status(201).json(req.body);
 });
 
 // controlador de errores 404, siempre se debe colocar al final
