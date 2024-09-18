@@ -7,6 +7,12 @@ const app = express();
 
 app.disable('x-powered-by'); // deshabilitar la cabecera X-Powered-By
 
+// middleware
+app.use((req, res, next) => {
+  console.log('Middleware 1');
+  next();
+});
+
 app.get('/pokemon/ditto', (req, res) => {
   // por defecto el status es 200, detecta eñ content-type automaticamente y envia el contenido
   // res.send('<h1>Hello World</h1>');
